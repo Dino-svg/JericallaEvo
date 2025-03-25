@@ -1,6 +1,6 @@
 `timescale 1ns/1ns
 
-module Jericalla_plus(
+module JericallaEvo(
     input   [16:0] instruction,
     input    clock,
     output  [31:0] result_out
@@ -28,13 +28,13 @@ PipelineRegister  pipe_reg2(.input1(w9), .input2(w8), .input3(w7), .clock(clock)
 control           control_unit(.opcode(instruction[16:15]), .salida_control(w2));
 endmodule
 
-module Jericalla_plus_TB();
+module JericallaEvo_TB();
 
 reg   [16:0] instruction;
 reg   clock;
 wire  [31:0] result_out;
 
-Jericalla_plus dut(.instruction(instruction), .clock(clock), .result_out(result_out));
+JericallaEvo dut(.instruction(instruction), .clock(clock), .result_out(result_out));
 
 // Testbench
 always #25 clock=~clock;
