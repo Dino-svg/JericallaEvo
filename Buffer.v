@@ -1,17 +1,18 @@
-module PipelineRegister(
-    input  wire[31:0] input1,
-    input  wire[31:0] input2,
-    input  wire[31:0] input3,
+module Buffer(
+    input  wire[31:0] input_A,
+    input  wire[31:0] input_B,
+    input  wire[31:0] input_C,
     input  wire clock,
-    output reg [31:0] output1,
-    output reg [31:0] output2,
-    output reg [31:0] output3
+    output reg [31:0] output_A,
+    output reg [31:0] output_B,
+    output reg [31:0] output_C
 );
 
 always@(posedge clock)
     begin
-    output1 = input1;
-    output2 = input2;
-    output3 = input3;
+    // Registro pipeline
+    output_A = input_A;
+    output_B = input_B;
+    output_C = input_C;
 end
 endmodule
