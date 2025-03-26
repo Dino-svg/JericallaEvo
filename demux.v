@@ -1,20 +1,21 @@
-module demux(
-    input wire[31:0]entrada_demux,
-    input wire demux_sel,
-    output reg[31:0]salida_demux_1,
-    output reg[31:0]salida_demux_2
+module DataDemux(
+    input wire[31:0] input_data,
+    input wire selector,
+    output reg[31:0] output_ch0,
+    output reg[31:0] output_ch1
 );
 
 always@(*) 
-	begin
-		if(!(demux_sel))
-		begin
-			salida_demux_1 = entrada_demux;  // La salida 0 toma el valor de la entrada.
-		end
-		
-		else
-		begin
-			salida_demux_2 = entrada_demux;  // La salida 1 toma el valor de la entrada.
-		end
-	end
+    begin
+        if(!selector)
+        begin
+            output_ch0 = input_data;  // Canal 0 seleccionado
+            output_ch1 = 32'bz;      // Alta impedancia
+        end
+        else
+        begin
+            output_ch1 = input_data;  // Canal 1 seleccionado
+            output_ch0 = 32'bz;      // Alta impedancia
+        end
+    end
 endmodule
