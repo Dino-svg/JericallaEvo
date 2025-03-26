@@ -12,11 +12,11 @@ reg [31:0] registers[0:31];
 
 always@(*)
     begin
-    // Lectura de registros
+
     data_out1 = registers[read_addr1];
     data_out2 = registers[read_addr2];
     
-    // Escritura de registro
+
     if(write_enable) 
     begin
         registers[write_addr] = data_in;
