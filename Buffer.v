@@ -1,4 +1,5 @@
 module Buffer(
+    
     input  wire[31:0] input_A,
     input  wire[31:0] input_B,
     input  wire[31:0] input_C,
@@ -9,10 +10,11 @@ module Buffer(
 );
 
 always@(posedge clock)
+    
     begin
-
     output_A = input_A;
     output_B = input_B;
     output_C = input_C;
 end
+    
 endmodule
