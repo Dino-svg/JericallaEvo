@@ -1,4 +1,6 @@
 module RegisterFile(
+
+    
     input  wire[4:0] read_addr1,
     input  wire[4:0] read_addr2,
     input  wire[4:0] write_addr,
@@ -18,8 +20,11 @@ always@(*)
     
 
     if(write_enable) 
+        
     begin
         registers[write_addr] = data_in;
     end
+        
 end
+    
 endmodule
