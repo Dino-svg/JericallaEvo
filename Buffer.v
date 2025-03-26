@@ -10,7 +10,7 @@ module Buffer(
 
 always@(posedge clock)
     begin
-    // Registro pipeline
+
     output_A = input_A;
     output_B = input_B;
     output_C = input_C;
