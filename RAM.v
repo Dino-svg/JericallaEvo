@@ -1,9 +1,9 @@
-module memory_output(
+module MemoryUnit(
     input  wire[31:0] address,
-    input  wire write_en,
-    input  wire read_en,
-    input  wire[31:0] write_data,
-    output reg [31:0] read_data
+    input  wire write_enable,
+    input  wire read_enable,
+    input  wire[31:0] data_in,
+    output reg [31:0] data_out
 );
 
 reg [31:0] memory[0:31];
@@ -11,15 +11,15 @@ reg [31:0] memory[0:31];
 always@(*)
     begin
     // Escritura
-    if(write_en && !read_en) 
+    if(write_enable && !read_enable) 
     begin
-        memory[address] = write_data;
+        memory[address] = data_in;
     end
     
     // Lectura
-    if(read_en && !write_en) 
+    if(read_enable && !write_enable) 
     begin
-        read_data = memory[address];
+        data_out = memory[address];
     end
 end
 endmodule
