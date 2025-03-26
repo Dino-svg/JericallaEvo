@@ -1,4 +1,4 @@
-module ControlUnit(
+module control(
     input  wire[1:0]  opcode,
     output reg [7:0]  control_signals
 );
