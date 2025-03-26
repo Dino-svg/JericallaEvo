@@ -34,7 +34,7 @@ demux            demux(.entrada_demux(pipe1_outA), .demux_sel(control_signals[5]
 Buffer pipe_reg1(.input_A(read_data1), .input_B(read_data2), .input_C(pipe1_outC), 
                            .clock(clock), .output_A(pipe1_outA), .output_B(alu_operandB), 
                            .output_C(pipe1_outC));
-PipelineRegister pipe_reg2(.input_A(demux_out1), .input_B(alu_result), .input_C(alu_operandB), 
+Buffer pipe_reg2(.input_A(demux_out1), .input_B(alu_result), .input_C(alu_operandB), 
                            .clock(clock), .output_A(mem_address), .output_B(write_data), 
                            .output_C(mem_write_data));
 control          control_unit(.opcode(instruction[16:15]), .salida_control(control_signals));
