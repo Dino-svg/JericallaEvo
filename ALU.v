@@ -8,13 +8,13 @@ module ALU(
 always@(*) 
     begin
         case (operation)
-            4'b0000: result = operand_A & operand_B;        // AND
-            4'b0001: result = operand_A | operand_B;        // OR
-            4'b0010: result = operand_A + operand_B;        // SUMA
-            4'b0110: result = operand_A - operand_B;        // RESTA
-            4'b0111: result = (operand_A < operand_B) ? 32'd1 : 32'd0; // Comparación
-            4'b1100: result = ~(operand_A | operand_B);     // NOR
-            default: result = 32'd0;                       // Default
+            4'b0000: result = operand_A & operand_B;        
+            4'b0001: result = operand_A | operand_B;        
+            4'b0010: result = operand_A + operand_B;        
+            4'b0110: result = operand_A - operand_B;        
+            4'b0111: result = (operand_A < operand_B) ? 32'd1 : 32'd0; 
+            4'b1100: result = ~(operand_A | operand_B);     
+            default: result = 32'd0;                       
         endcase
     end
 endmodule
