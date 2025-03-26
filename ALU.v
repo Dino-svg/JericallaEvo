@@ -1,4 +1,5 @@
 module ALU(
+    
     input wire [31:0] operand_A,
     input wire [31:0] operand_B,
     input wire [3:0] operation,
@@ -17,4 +18,5 @@ always@(*)
             default: result = 32'd0;                       
         endcase
     end
+    
 endmodule
