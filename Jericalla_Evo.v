@@ -53,7 +53,7 @@ demux        demux_module(
     .output_ch1(demux_output2)
 );
 
-buffer pipe_stage1(
+Buffer pipe_stage1(
     .input_A(reg_read_data1),
     .input_B(reg_read_data2),
     .input_C(pipe_feedback),
@@ -63,7 +63,7 @@ buffer pipe_stage1(
     .output_C(pipe_feedback)
 );
 
-buffer pipe_stage2(
+Buffer pipe_stage2(
     .input_A(demux_output2),
     .input_B(alu_result),
     .input_C(alu_operandB),
