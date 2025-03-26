@@ -1,4 +1,4 @@
-module DataDemux(
+module demux(
     input wire[31:0] input_data,
     input wire selector,
     output reg[31:0] output_ch0,
