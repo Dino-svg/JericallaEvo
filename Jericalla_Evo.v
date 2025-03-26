@@ -49,7 +49,7 @@ wire  [31:0] output_data;
 JericallaEvo dut(.instruction(instruction), .clock(clock), .output_data(output_data));
 
 // Testbench
-always #25 clk=~clk;
+always #25 clock=~clock;
 initial
     begin
         clock=0;
