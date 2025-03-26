@@ -21,23 +21,62 @@ wire [31:0] pipe1_outA;      // Salida A PipelineReg1
 wire [31:0] pipe1_outC;      // Salida C PipelineReg1 (feedback)
 
 // Instancias
-RegisterFile     reg_file(.read_addr1(instruction[9:5]), .read_addr2(instruction[4:0]), 
-                         .write_addr(instruction[14:10]), .write_enable(control_signals[0]), 
-                         .data_in(write_data), .data_out1(read_data1), .data_out2(read_data2));
-MemoryUnit       memory(.address(mem_address), .write_enable(control_signals[6]), 
-                       .read_enable(control_signals[7]), .data_in(mem_write_data), 
-                       .data_out(output_data));
-ALU   alu(.operand_A(alu_operandA), .operand_B(alu_operandB), 
-                     .operation(control_signals[4:1]), .result(alu_result));
-demux            demux(.entrada_demux(pipe1_outA), .demux_sel(control_signals[5]), 
-                       .salida_demux_1(alu_operandA), .salida_demux_2(demux_out1));
-Buffer pipe_reg1(.input_A(read_data1), .input_B(read_data2), .input_C(pipe1_outC), 
-                           .clock(clock), .output_A(pipe1_outA), .output_B(alu_operandB), 
-                           .output_C(pipe1_outC));
-Buffer pipe_reg2(.input_A(demux_out1), .input_B(alu_result), .input_C(alu_operandB), 
-                           .clock(clock), .output_A(mem_address), .output_B(write_data), 
-                           .output_C(mem_write_data));
-control          control_unit(.opcode(instruction[16:15]), .salida_control(control_signals));
+RegisterFile     register_bank(
+    .read_addr1(instruction[9:5]),
+    .read_addr2(instruction[4:0]),
+    .write_addr(instruction[14:10]),
+    .write_enable(control_signals[0]),
+    .data_in(reg_write_data),
+    .data_out1(reg_read_data1),
+    .data_out2(reg_read_data2)
+);
+
+MemoryUnit       memory_module(
+    .address(mem_address),
+    .write_enable(control_signals[6]),
+    .read_enable(control_signals[7]),
+    .data_in(mem_write_data),
+    .data_out(result_out)
+);
+
+ALU   alu_module(
+    .operand_A(alu_operandA),
+    .operand_B(alu_operandB),
+    .operation(control_signals[4:1]),
+    .result(alu_result)
+);
+
+demux        demux_module(
+    .input_data(demux_input),
+    .selector(control_signals[5]),
+    .output_ch0(alu_operandA),
+    .output_ch1(demux_output2)
+);
+
+buffer pipe_stage1(
+    .input_A(reg_read_data1),
+    .input_B(reg_read_data2),
+    .input_C(pipe_feedback),
+    .clock(clock),
+    .output_A(demux_input),
+    .output_B(alu_operandB),
+    .output_C(pipe_feedback)
+);
+
+buffer pipe_stage2(
+    .input_A(demux_output2),
+    .input_B(alu_result),
+    .input_C(alu_operandB),
+    .clock(clock),
+    .output_A(mem_address),
+    .output_B(reg_write_data),
+    .output_C(mem_write_data)
+);
+
+control      control_module(
+    .opcode(instruction[16:15]),
+    .control_signals(control_signals)
+);
 endmodule
 
 module JericallaEvo_TB();
